@@ -25,11 +25,13 @@ This project is part of the undergraduate program in Computer Engineering, Depar
 ---
 
 ## 🌍 Introduction to the problem and the solution
-In industrial automation, ensuring worker safety and maintaining optimal machine performance are critical priorities. Factories require solutions to continuously monitor environmental conditions, prevent hazards, and enhance safety.  
+Industrial automation has revolutionized the way factories and manufacturing facilities operate. However, alongside increased efficiency and productivity, new challenges have emerged, particularly in ensuring worker safety and maintaining the optimal performance of machinery. Industrial environments often expose workers to hazardous conditions, such as exposure to harmful gases or unsafe proximity to machinery. These risks necessitate robust solutions that continuously monitor environmental conditions, identify potential hazards, and issue timely alerts to enhance workplace safety.
 
-**Air Quality and Machine Safety Monitoring System** is an IoT-based solution designed to provide real-time air quality monitoring and safety alerts for industrial environments.  
+The Air Quality and Machine Safety Monitoring System is an advanced IoT-based solution specifically designed to address these challenges. It provides real-time monitoring of air quality and ensures worker safety by keeping track of their proximity to hazardous machinery. This system plays a critical role in industrial safety management by integrating cutting-edge technology with an easy-to-use monitoring interface.
 
-The system uses the ESP32 microcontroller, MQ-135 gas sensor, and HC-SR04 ultrasonic sensor to monitor air quality and worker proximity to machinery. Data is visualized via the Blynk app, enabling remote monitoring and control for enhanced factory safety management.
+At the heart of the system lies the ESP32 microcontroller, which acts as the central processing unit. The system utilizes the MQ-135 gas sensor to detect various harmful gases, including carbon monoxide (CO), carbon dioxide (CO₂), ammonia (NH₃), and methane (CH₄). Additionally, the HC-SR04 ultrasonic sensor measures the distance between workers and machinery, ensuring a safe working environment by identifying hazardous proximity.
+
+Collected data is sent to the Blynk application, which serves as a real-time visualization and control platform. This allows factory managers and safety officers to remotely monitor air quality, view proximity data, and receive instant alerts for unsafe conditions. The integration of these technologies not only improves workplace safety but also enhances decision-making by providing actionable insights into the factory’s operational environment.
 
 ---
 
