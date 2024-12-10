@@ -55,6 +55,11 @@ The system integrates the following components:
 
 The ESP32 collects data from the sensors and transmits it to the Blynk platform via Wi-Fi. If any unsafe conditions are detected (e.g., poor air quality or proximity hazards), the system triggers alerts through LEDs and buzzers.
 
+Hardware schema:
+
+![image](https://hackmd.io/_uploads/S11jhRB4kx.png)
+
+
 ---
 
 ## 🌐 Network Infrastructure
@@ -91,6 +96,11 @@ The system is implemented using **FreeRTOS** to manage multiple tasks concurrent
 
 To avoid task conflicts, mutexes are used for synchronized access to shared resources.
 
+Flowchart of the software program:
+
+![WhatsApp Image 2024-12-10 at 22.24.05_9604c9cd](https://hackmd.io/_uploads/HJgV6AHE1l.jpg)
+
+
 ---
 
 ## 📊 Test Results and Performance Evaluation
@@ -100,6 +110,15 @@ The system has been thoroughly tested in a simulated factory environment.
 1. Successfully detects harmful gases such as CO, CO₂, NH₃, and CH₄ using the MQ-135 sensor.
 2. Measures safe working distances with the HC-SR04 sensor.
 3. Provides early warnings through buzzers and visualizes real-time data on the Blynk app.  
+
+Case when someone approaching the machine in danger zone:
+
+![image](https://hackmd.io/_uploads/HJGynRrV1g.png)
+
+Case when dangerous gas particles exceeding safe limit:
+
+![image](https://hackmd.io/_uploads/rybgh0HE1g.png)
+
 
 Some inconsistencies in sensor readings were observed, primarily due to hardware quality limitations. However, overall system performance is reliable and effective.
 
@@ -114,5 +133,3 @@ The **Air Quality and Machine Safety Monitoring System** offers a practical and 
 3. Implement machine learning to predict equipment failures and enable predictive maintenance.  
 
 This system demonstrates the potential of IoT in transforming industrial safety standards.
-
----
