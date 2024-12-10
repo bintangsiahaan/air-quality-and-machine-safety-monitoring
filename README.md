@@ -12,7 +12,7 @@
 
 ---
 
-## 📜 Contributors
+## Contributors
 This project is the Real-Time System & IoT practicum final assignment created by the following group members:
 
 - [Bintang Siahaan](https://github.com/bintangsiahaan) - 2206024322  
@@ -24,7 +24,7 @@ This project is part of the undergraduate program in Computer Engineering, Depar
 
 ---
 
-## 🌍 Introduction to the problem and the solution
+## Introduction to the problem and the solution
 Industrial automation has revolutionized the way factories and manufacturing facilities operate. However, alongside increased efficiency and productivity, new challenges have emerged, particularly in ensuring worker safety and maintaining the optimal performance of machinery. Industrial environments often expose workers to hazardous conditions, such as exposure to harmful gases or unsafe proximity to machinery. These risks necessitate robust solutions that continuously monitor environmental conditions, identify potential hazards, and issue timely alerts to enhance workplace safety.
 
 The Air Quality and Machine Safety Monitoring System is an advanced IoT-based solution specifically designed to address these challenges. It provides real-time monitoring of air quality and ensures worker safety by keeping track of their proximity to hazardous machinery. This system plays a critical role in industrial safety management by integrating cutting-edge technology with an easy-to-use monitoring interface.
@@ -35,7 +35,7 @@ Collected data is sent to the Blynk application, which serves as a real-time vis
 
 ---
 
-## 🔧 Hardware Design and Implementation
+## Hardware Design and Implementation
 The system integrates the following components:
 
 ### 1. **ESP32 Microcontroller**
@@ -62,7 +62,7 @@ Hardware schema:
 
 ---
 
-## 🌐 Network Infrastructure
+## Network Infrastructure
 The system uses the following communication setup:
 - **Wi-Fi Connection**: The ESP32 connects to the internet and sends data to the Blynk platform.
 - **Blynk Application**: Provides real-time data visualization and control.  
@@ -76,7 +76,7 @@ Wi-Fi credentials (SSID, password) and the Blynk authentication token are secure
 
 ---
 
-## 💻 Software Implementation Details
+## Software Implementation Details
 The system is implemented using **FreeRTOS** to manage multiple tasks concurrently. Key tasks include:
 
 ### 1. **Gas Sensor Reading Task**
@@ -103,7 +103,7 @@ Flowchart of the software program:
 
 ---
 
-## 📊 Test Results and Performance Evaluation
+## Test Results and Performance Evaluation
 The system has been thoroughly tested in a simulated factory environment.  
 
 ### Key Observations:
@@ -136,7 +136,7 @@ Some inconsistencies in sensor readings were observed, primarily due to hardware
 
 ---
 
-## 🔮 Conclusion and Future Work
+## Conclusion and Future Work
 The **Air Quality and Machine Safety Monitoring System** offers a practical and cost-effective solution to enhance industrial safety. By leveraging the ESP32 microcontroller, MQ-135 gas sensor, and HC-SR04 ultrasonic sensor, the system monitors air quality and provides safety alerts in real time.  
 
 ### Future Enhancements:
