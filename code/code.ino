@@ -124,7 +124,7 @@ void readMQ135() {
   // Menampilkan nilai ppm untuk CO2, CO, NH3, dan CH4
   Serial.print("CO2 PPM: ");
   Serial.println(co2_ppm, 2);       
-    
+  
   Serial.print("CO PPM: ");
   Serial.println(co_ppm, 2);         
 
@@ -205,6 +205,9 @@ void readSensors(void *pvParameters) {
       Serial.println("Gagal mengirim data ke queue!");
     }
 
+    // Memberi sinyal bahwa data sensor telah diperbarui
+    xSemaphoreGive(xSemaphoreDataReady);
+    
     // Delay non-blocking selama 1 detik
     vTaskDelay(pdMS_TO_TICKS(1000));
   }
@@ -215,48 +218,51 @@ void blynkTask(void *pvParameters) {
   SensorData_t receivedData;
 
   for (;;) {
-    // Tunggu hingga data tersedia di queue
-    if (xQueueReceive(xSensorQueue, &receivedData, portMAX_DELAY) == pdPASS) {
-      // Mengirim data ke Blynk
-      Blynk.virtualWrite(VIRTUAL_CO2_PIN, receivedData.co2_ppm);  
-      Blynk.virtualWrite(VIRTUAL_CO_PIN, receivedData.co_ppm);     
-      Blynk.virtualWrite(VIRTUAL_CH4_PIN, receivedData.methane_ppm); 
-      Blynk.virtualWrite(VIRTUAL_NH3_PIN, receivedData.ammonia_ppm);  
-      Blynk.virtualWrite(VIRTUAL_DISTANCE_PIN, receivedData.distanceCm);
-      
-      // Cek ambang batas gas dan jarak
-      bool gasExceeded = false;
-      String warningMessage = "";
+    // Tunggu hingga semaphore tersedia
+    if (xSemaphoreTake(xSemaphoreDataReady, portMAX_DELAY)) {
+      // Menerima data dari queue dan memprosesnya
+      if (xQueueReceive(xSensorQueue, &receivedData, 0) == pdPASS) {
+        // Mengirim data ke Blynk
+        Blynk.virtualWrite(VIRTUAL_CO2_PIN, receivedData.co2_ppm);  
+        Blynk.virtualWrite(VIRTUAL_CO_PIN, receivedData.co_ppm);     
+        Blynk.virtualWrite(VIRTUAL_CH4_PIN, receivedData.methane_ppm); 
+        Blynk.virtualWrite(VIRTUAL_NH3_PIN, receivedData.ammonia_ppm);  
+        Blynk.virtualWrite(VIRTUAL_DISTANCE_PIN, receivedData.distanceCm);
+        
+        // Cek ambang batas gas dan jarak
+        bool gasExceeded = false;
+        String warningMessage = "";
 
-      if (receivedData.co2_ppm > threshold_co2) {
-        warningMessage += "Peringatan: Kadar CO2 melebihi batas aman!\n";
-        gasExceeded = true;
-      }
-      if (receivedData.co_ppm > threshold_co) {
-        warningMessage += "Peringatan: Kadar CO melebihi batas aman!\n";
-        gasExceeded = true;
-      }
-      if (receivedData.methane_ppm > threshold_ch4) {
-        warningMessage += "Peringatan: Kadar Methane (CH4) melebihi batas aman!\n";
-        gasExceeded = true;
-      }
-      if (receivedData.ammonia_ppm > threshold_nh3) {
-        warningMessage += "Peringatan: Kadar Ammonia (NH3) melebihi batas aman!\n";
-        gasExceeded = true;
-      }
+        if (receivedData.co2_ppm > threshold_co2) {
+          warningMessage += "Peringatan: Kadar CO2 melebihi batas aman!\n";
+          gasExceeded = true;
+        }
+        if (receivedData.co_ppm > threshold_co) {
+          warningMessage += "Peringatan: Kadar CO melebihi batas aman!\n";
+          gasExceeded = true;
+        }
+        if (receivedData.methane_ppm > threshold_ch4) {
+          warningMessage += "Peringatan: Kadar Methane (CH4) melebihi batas aman!\n";
+          gasExceeded = true;
+        }
+        if (receivedData.ammonia_ppm > threshold_nh3) {
+          warningMessage += "Peringatan: Kadar Ammonia (NH3) melebihi batas aman!\n";
+          gasExceeded = true;
+        }
 
-      if (receivedData.distanceCm <= safe_distance) {
-        warningMessage += "Peringatan: Pegawai mendekat ke mesin!\n";
-        gasExceeded = true;
-      }
+        if (receivedData.distanceCm <= safe_distance) {
+          warningMessage += "Peringatan: Pegawai mendekat ke mesin!\n";
+          gasExceeded = true;
+        }
 
-      if (gasExceeded) {
-        Serial.println(warningMessage);
-        Blynk.virtualWrite(VIRTUAL_MESSAGE_PIN, warningMessage);
-        // Aksi: Mematikan mesin melalui deep sleep
-        enterDeepSleep();
-      } else {
-        Blynk.virtualWrite(VIRTUAL_MESSAGE_PIN, "Semua parameter dalam batas aman.");
+        if (gasExceeded) {
+          Serial.println(warningMessage);
+          Blynk.virtualWrite(VIRTUAL_MESSAGE_PIN, warningMessage);
+          // Aksi: Mematikan mesin melalui deep sleep
+          enterDeepSleep();
+        } else {
+          Blynk.virtualWrite(VIRTUAL_MESSAGE_PIN, "Semua parameter dalam batas aman.");
+        }
       }
     }
     // Tambahkan delay kecil untuk menghindari penggunaan CPU yang berlebihan
@@ -284,6 +290,13 @@ void setup() {
   if (xSensorQueue == NULL) {
     Serial.println("Gagal membuat queue!");
     while (1); // Hentikan eksekusi jika queue gagal dibuat
+  }
+
+  // Inisialisasi Semaphore
+  xSemaphoreDataReady = xSemaphoreCreateBinary();
+  if (xSemaphoreDataReady == NULL) {
+    Serial.println("Gagal membuat binary semaphore!");
+    while (1); // Hentikan eksekusi jika semaphore gagal dibuat
   }
 
   // Koneksi ke Wi-Fi
