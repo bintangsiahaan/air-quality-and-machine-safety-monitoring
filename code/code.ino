@@ -43,8 +43,8 @@
 
 // Kredensial Wi-Fi
 char auth[] = BLYNK_AUTH_TOKEN;
-char ssid[] = "Hotspot";  // Ganti dengan SSID Wi-Fi Anda
-char pass[] = "n0t33421";  // Ganti dengan Password Wi-Fi Anda
+char ssid[] = "TrioHa 5G";  // Ganti dengan SSID Wi-Fi Anda
+char pass[] = "Sanjaya24";  // Ganti dengan Password Wi-Fi Anda
 
 // Struktur untuk menyimpan data sensor
 typedef struct {
@@ -81,6 +81,9 @@ BlynkTimer timer;
 
 // Deklarasi Queue Handle
 QueueHandle_t xSensorQueue;
+
+// Deklarasi Semaphore Handle
+SemaphoreHandle_t xSemaphoreDataReady;
 
 // Fungsi untuk memasuki mode deep sleep
 void enterDeepSleep() {
