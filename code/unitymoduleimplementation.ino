@@ -1,6 +1,6 @@
-#define BLYNK_TEMPLATE_ID "TMPL6i-ulUeg_"
-#define BLYNK_TEMPLATE_NAME "Proyek IOT"
-#define BLYNK_AUTH_TOKEN "DMwQtTU-5CFN5GhzERxNW-Kl-NdFFBmw"
+#define BLYNK_TEMPLATE_ID "TMPL6HOsfa_3b"
+#define BLYNK_TEMPLATE_NAME "Unity Gas Monitoring"
+#define BLYNK_AUTH_TOKEN "MA5yxkC-Afvj25fdhqTJfNKe_9hQEdcJ"
 
 // Library yang dibutuhkan
 #include <WiFi.h>
@@ -42,8 +42,8 @@
 
 // Kredensial Wi-Fi
 char auth[] = BLYNK_AUTH_TOKEN;
-char ssid[] = "Hotspot";       // Ganti dengan SSID Wi-Fi Anda
-char pass[] = "n0t33421";      // Ganti dengan Password Wi-Fi Anda
+char ssid[] = "HNIS";       // Ganti dengan SSID Wi-Fi Anda
+char pass[] = "qwerty90";      // Ganti dengan Password Wi-Fi Anda
 
 // Variabel untuk SR04
 long duration;
