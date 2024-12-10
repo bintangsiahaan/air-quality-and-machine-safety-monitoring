@@ -115,9 +115,21 @@ Case when someone approaching the machine in danger zone:
 
 ![image](https://hackmd.io/_uploads/HJGynRrV1g.png)
 
-Case when dangerous gas particles exceeding safe limit:
+Case when dangerous gas elements exceeding safe limit:
 
 ![image](https://hackmd.io/_uploads/rybgh0HE1g.png)
+
+Blynk dashboard:
+
+![WhatsApp Image 2024-12-10 at 22.28.53_1a85fdea](https://hackmd.io/_uploads/HJToAABN1l.jpg)
+
+![WhatsApp Image 2024-12-10 at 22.28.53_c55b41b0](https://hackmd.io/_uploads/BkR900rNkl.jpg)
+
+Gas elements in graphic view:
+
+![WhatsApp Image 2024-12-10 at 22.28.54_b579be33](https://hackmd.io/_uploads/BJa-kJL4kl.jpg)
+
+![WhatsApp Image 2024-12-10 at 22.28.53_1a0f7d6a](https://hackmd.io/_uploads/SyHfyJ8NJx.jpg)
 
 
 Some inconsistencies in sensor readings were observed, primarily due to hardware quality limitations. However, overall system performance is reliable and effective.
